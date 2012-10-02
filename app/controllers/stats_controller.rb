@@ -70,9 +70,11 @@ class StatsController < ApplicationController
     temp = Tempfile.open("temp", "#{Rails.root}/tmp/stat_exports/")
     temp << svg
     temp.close
-
+   begin
     exported = %x{ rsvg-convert #{Shellwords.escape(temp.path)} --width #{Shellwords.escape(width)} --format #{Shellwords.escape(extension)} }
-
+   rescue
+      exported = %x{ rsvg-convert #{Shellwords.escape(temp.path)} --width #{width} --format #{Shellwords.escape(extension)} }
+   end
     send_data exported, :filename => "#{filename}.#{extension}", :type => mime_type
   end
 
