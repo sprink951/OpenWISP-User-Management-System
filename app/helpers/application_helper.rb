@@ -51,6 +51,10 @@ module ApplicationHelper
     link_to(image_tag("locale/#{locale}.jpg", :size => "24x24"), destination, html_opts.merge(opts))
   end
 
+  def link_to_logo()
+    link_to(image_tag("logo_provincia.jpg"))
+  end
+
   def link_to_toggle_mobile(opts={})
     text = session[:mobile_view] ? t(:Switch_to_full_site) : t(:Switch_to_mobile_site)
     link_to text, toggle_mobile_url, opts
